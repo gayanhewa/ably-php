@@ -1,0 +1,24 @@
+{
+    "name": "gayan/ably-php",
+    "description": "Ably real-time messaging service REST API Client.",
+    "require": {
+        "mnapoli/php-di": "dev-master",
+        "guzzle/guzzle": "~3.9@dev"
+    },
+    "require-dev": {
+        "codeception/codeception": "~2.1@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ably\\": "src/Ably/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gayan",
+            "email": "gayanhewa@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
