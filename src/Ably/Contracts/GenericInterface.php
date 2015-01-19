@@ -4,4 +4,5 @@ namespace Ably\Contracts;
 
 interface GenericInterface {
 
+
 }
