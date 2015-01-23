@@ -3,6 +3,7 @@
 namespace Ably;
 
 use Ably\Contracts\GenericInterface;
+use SebastianBergmann\Exporter\Exception;
 
 class AppClient extends abstractClient implements GenericInterface
 {
@@ -11,11 +12,12 @@ class AppClient extends abstractClient implements GenericInterface
      *  Create an app
      *
      * @param $params
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|mixed|null
      */
     public function createApp($params)
     {
-         return $this->client->post($this->getEndpoint('/apps'), ['json'=> $params]);
-//        $this->client->setHeader('Content-Type', 'application/json');
-
+        $response = $this->client->post($this->getEndpoint('apps'), [ 'body' => $params ]);
+        return $response;
     }
+
 }

@@ -4,10 +4,12 @@ namespace Codeception\Module;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
+use GuzzleHttp\Client;
+
 class AblyHelper extends \Codeception\Module
 {
     // Init the configuration
-    protected $sandbox_url = 'https://sandbox-rest.ably.io';
+    protected $sandbox_url = 'https://sandbox-rest.ably.io/';
 
     protected $port = '80';
 
@@ -55,8 +57,11 @@ class AblyHelper extends \Codeception\Module
     /**
      * @return string
      */
-    public function getSandboxUrl()
+    public function getSandboxUrl($path = null)
     {
+        if (! is_null($path)) {
+            return $this->sandbox_url.$path;
+        }
         return $this->sandbox_url;
     }
 
@@ -88,5 +93,15 @@ class AblyHelper extends \Codeception\Module
     {
         $this->app_config = $app_config;
     }
+
+    public function getKeys()
+    {
+        $client = new Client();
+        $response = $client->post($this->getSandboxUrl('apps'), [ 'body' => $this->getAppConfig() ]);
+        $body = json_decode($response->getBody(), true);
+        return $body;
+    }
+
+
 
 }

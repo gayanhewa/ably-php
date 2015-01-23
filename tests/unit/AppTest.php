@@ -37,17 +37,16 @@ class AppTest extends \Codeception\TestCase\Test
     public function testCreateApp()
     {
         //arrange
-        $params = $this->tester->getAppConfig(true);
+        $params = $this->tester->getAppConfig();
 
         $app = new AppClient(new \GuzzleHttp\Client);
         $app->setEndpoint($this->tester->getSandboxUrl());
 
         //act
         $response = $app->createApp($params);
-
         //assert
         $this->tester->assertNotEmpty($response);
-
+        $response_body = json_decode($response->getBody(), true);
+        $this->assertArrayHasKey('appId', $response_body);
     }
-
 }
